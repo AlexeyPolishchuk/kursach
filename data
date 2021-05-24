@@ -3,7 +3,6 @@
 #include <string>
 using namespace std;
 
-
 struct Gosudarstvo
 {
 	char Country[255];
@@ -20,8 +19,6 @@ void showData(const Gosudarstvo* Obj, const int amount);
 
 int main()
 {
-	setlocale(LC_ALL, "rus");
-
 	Gosudarstvo* OurGosudarstvo = 0;
 	int gosudarstvoAmount = 0;
 	int YesOrNot = 0; //  продолжить или остановить ввод данных
@@ -33,7 +30,7 @@ int main()
 
 		gosudarstvoAmount++;
 
-		cout << "Продолжить ввод данных (1 - да, 0 - нет): ";
+		cout << "Continue data entry(1 - yes, 0 - no): ";
 		cin >> YesOrNot;
 		cin.get();
 	} while (YesOrNot != 0);
@@ -67,20 +64,20 @@ Gosudarstvo* AddStruct(Gosudarstvo* Obj, const int amount)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void setData(Gosudarstvo* Obj, const int amount)
 {
-	cout << "Страна: ";
+	cout << "Country: ";
 	cin.getline(Obj[amount].Country, 255);
 
-	cout << "Столица: ";
+	cout << "Capital: ";
 	cin.getline(Obj[amount].Capital, 255);
 
-	cout << "Континент: ";
+	cout << "Continent: ";
 	cin.getline(Obj[amount].Continent, 255);
 
 
-	cout << "Популяция: ";
+	cout << "Population(people): ";
 	cin >> Obj[amount].Population;
 
-	cout << "Площадь: ";
+	cout << "Area(km^2): ";
 	cin >> Obj[amount].Area;
 
 	cin.get();
@@ -91,8 +88,8 @@ void setData(Gosudarstvo* Obj, const int amount)
 void showData(const Gosudarstvo* Obj, const int amount)
 {
 	system("cls");
-	cout << "№  " << "Страна\t " << "Столица\t " << "Континент\t " << "Популяция\t " << "Площадь\t " << endl;
-	cout << "========================================================================" << endl;
+	cout << "№ " << "Country\t " << "Capital\t " << "Continent\t " << "Population(people)\t " << "Area(km ^ 2)\t " << endl;
+	cout << "===========================================================================================" << endl;
 	for (int i = 0; i < amount; i++)
 	{
 		cout << i + 1 << "  " << Obj[i].Country << "    " << '\t' << Obj[i].Capital << "    " << '\t' << Obj[i].Continent << "      " << '\t' << Obj[i].Population << "    " << '\t' << Obj[i].Area << "    " << endl;
