@@ -1,6 +1,546 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
+
+using namespace std;
+/*
+
+struct Gosudarstvo
+{
+	char Country[255];
+	char Capital[255];
+	char Continent[255];
+	int Population;
+	int Area;
+};
+
+
+Gosudarstvo* AddStruct(Gosudarstvo* Obj, const int amount);
+void setData(Gosudarstvo* Obj, const int amount);
+void showData(const Gosudarstvo* Obj, const int amount);
+
+int main()
+{
+	Gosudarstvo* OurGosudarstvo = 0;
+	int gosudarstvoAmount = 0;
+	int YesOrNot = 0; //  продолжить или остановить ввод данных
+
+	do
+	{
+		OurGosudarstvo = AddStruct(OurGosudarstvo, gosudarstvoAmount);
+		setData(OurGosudarstvo, gosudarstvoAmount);
+
+		gosudarstvoAmount++;
+
+		cout << "Continue data entry(1 - yes, 0 - no): ";
+		cin >> YesOrNot;
+		cin.get();
+	} while (YesOrNot != 0);
+
+	showData(OurGosudarstvo, gosudarstvoAmount);
+
+	delete[] OurGosudarstvo;
+	return 0;
+}
+
+Gosudarstvo* AddStruct(Gosudarstvo* Obj, const int amount)
+{
+	if (amount == 0)
+	{
+		Obj = new Gosudarstvo[amount + 1]; // выделение памяти для первой структуры
+	}
+	else
+	{
+		Gosudarstvo* tempObj = new Gosudarstvo[amount + 1];
+
+		for (int i = 0; i < amount; i++)
+		{
+			tempObj[i] = Obj[i]; // копируем во временный объект
+		}
+		delete[] Obj;
+
+		Obj = tempObj;
+	}
+	return Obj;
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void setData(Gosudarstvo* Obj, const int amount)
+{
+	cout << "Country: ";
+	cin.getline(Obj[amount].Country, 255);
+
+	cout << "Capital: ";
+	cin.getline(Obj[amount].Capital, 255);
+
+	cout << "Continent: ";
+	cin.getline(Obj[amount].Continent, 255);
+
+
+	cout << "Population(people): ";
+	cin >> Obj[amount].Population;
+
+	cout << "Area(km^2): ";
+	cin >> Obj[amount].Area;
+
+	cin.get();
+	cout << endl;
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+void showData(const Gosudarstvo* Obj, const int amount)
+{
+	system("cls");
+	cout << "№ " << "Country\t " << "Capital\t " << "Continent\t " << "Population(people)\t " << "Area(km ^ 2)\t " << endl;
+	cout << "===========================================================================================" << endl;
+	for (int i = 0; i < amount; i++)
+	{
+		cout << i + 1 << "  " << Obj[i].Country << "    " << '\t' << Obj[i].Capital << "    " << '\t' << Obj[i].Continent << "      " << '\t' << Obj[i].Population << "    " << '\t' << Obj[i].Area << "    " << endl;
+	}
+}*/
+/*#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+*/
+struct Gosudarstvo
+{
+	string Country;
+	string Capital;
+	string Continent;
+	string Population;
+	string Area;
+};
+
+void resize(int& Gosudarstvo_number, Gosudarstvo*& my_gosudarstvo) {
+	int newSize = Gosudarstvo_number + 1;
+	Gosudarstvo* newArr = new Gosudarstvo[newSize];
+
+	copy( my_gosudarstvo, my_gosudarstvo + Gosudarstvo_number, newArr);
+
+	Gosudarstvo_number = newSize;
+	delete[] my_gosudarstvo;
+	my_gosudarstvo = newArr;
+}
+
+int menu_choice;
+/*void Menu()
+{
+
+	cout << "Выбирите действие:" << endl
+		<< "(1) Создание файла информационной базы" << endl
+		<< "(2) Распечатка  информационной базы" << endl
+		<< "(3) Удаление из базы всех стран, у которых численность меньше заданной" << endl
+		<< "(4) Поиск по названию столицы" << endl
+		<< "(5) Поиск по занимаемой площади свыше заданной" << endl
+		<< "(6) Выдачу сведений о государствах заданного континента с выбором способа сортировки (по названию, по площади, по населению)" << endl
+		<< "(7) Добавление новых записей в базу данных" << endl
+		<< "(8) Редактирование записей базы данных" << endl
+		<< "(0) Завершение работы" << endl
+		<< "Ваш выбор: ";
+	cin >> menu_choice;		
+}*/
+void DataRecord()
+{
+	/*int Gosudarstvo_number = 20;
+	Gosudarstvo* OurGosudarstvo = new Gosudarstvo[Gosudarstvo_number];*/
+	string country_path/*, capital_path, continent_path, population_path, area_path*/;
+	cout << "Enter path where the COUNTRY name info will be stored: ";
+	cin >> country_path;
+	/*cout << "Enter path where the CAPITAl name info will be stored: ";
+	cin >> capital_path;
+	cout << "Enter path where the CONTINENT name info will be stored: ";
+	cin >> continent_path;
+	cout << "Enter path where the POPULATION info will be stored: ";
+	cin >> population_path;
+	cout << "Enter path where the AREA info will be stored: ";
+	cin >> area_path;*/
+
+
+	ofstream fcountry_path;
+	{
+		fcountry_path.open(country_path);
+		fcountry_path << "China\nUSA\nBrazil\nUkraine\nJapan\nSpain\nKenya\nCanada\nNew Zealand\nMexico\nFrance\nPoland\nAustralia\nItaly\nUK\nEgypt\nAlgeria\nSouth Africa\nArgentina\nChile";
+	}
+	/*ofstream fcapital_path;
+	{
+		fcapital_path.open(capital_path);
+		fcapital_path << "Beijing\nWashington\nBrasilia\nKyiv\nTokyo\nMadrid\nNairobi\nOttawa\nWellington\nMexico City\nParis\nWarsaw\nCanberra\nRome\nLondon\nCairo\nAlgiers\nCape Town\nBuenos Aires\nSantiago";
+
+	}
+	ofstream fcontinent_path;
+	{
+		fcontinent_path.open(continent_path);
+		fcontinent_path << "Asia\nNorth America\nSouth America\nEurope\nAsia\nEurope\nAfrica\nNorth America\nOceania\nNorth America\nEurope\nEurope\nOceania\nEurope\nEurope\nAfrica\nAfrica\nAfrica\nSouth America\nSouth America";
+
+	}
+	ofstream fpopulation_path;
+	{
+		fpopulation_path.open(population_path);
+		fpopulation_path << "1412000000\n331449281\n210147125\n41487960\n125360000\n47450795\n54985698\n38048738\n5129360\n126014024\n67406000\n38268000\n25802300\n60317166\n67886004\n101576517\n44700000\n59622350\n44938712\n17574003";
+
+	}
+	ofstream farea_path;
+	{
+		farea_path.open(area_path);
+		farea_path << "9596961\n9833520\n8515767\n603628\n377975\n505990\n580367\n9984670\n268021\n1972550\n640679\n312696\n7692024\n301340\n242495\n1010408\n2381741\n1221037\n2780400\n756096";
+	}*/
+	fcountry_path.close();
+	/*fcapital_path.close();
+	fcontinent_path.close();
+	fpopulation_path.close();
+	farea_path.close();*/
+	int Gosudarstvo_number = 20;
+	Gosudarstvo* OurGosudarstvo = new Gosudarstvo[Gosudarstvo_number];
+	//string country_path/*, capital_path, continent_path, population_path, area_path*/;
+	ifstream ffcountry_path;
+	{
+		ffcountry_path.open(country_path);
+		for (int i = 0; i < Gosudarstvo_number; i++)
+		{
+
+			getline(ffcountry_path, OurGosudarstvo[i].Country);
+			cout << OurGosudarstvo[i].Country;
+		}
+
+	}
+	/*ifstream ffcapital_path;
+	{
+		ffcapital_path.open(capital_path);
+		for (int i = 0; i < Gosudarstvo_number; i++)
+		{
+
+			getline(ffcapital_path, OurGosudarstvo[i].Capital);
+			cout << OurGosudarstvo[i].Capital;
+		}
+
+	}
+	ifstream ffcontinent_path;
+	{
+		ffcontinent_path.open(continent_path);
+		for (int i = 0; i < Gosudarstvo_number; i++)
+		{
+			getline(ffcontinent_path, OurGosudarstvo[i].Continent);
+			cout << OurGosudarstvo[i].Continent;
+		}
+
+	}
+	ifstream ffpopulation_path;
+	{
+		ffpopulation_path.open(population_path);
+		for (int i = 0; i < Gosudarstvo_number; i++)
+		{
+			getline(ffpopulation_path, OurGosudarstvo[i].Population);
+			cout << OurGosudarstvo[i].Population;
+		}
+	}
+	ifstream ffarea_path;
+	{
+		ffarea_path.open(area_path);
+		for (int i = 0; i < Gosudarstvo_number; i++)
+		{
+
+			getline(ffarea_path, OurGosudarstvo[i].Area);
+			cout << OurGosudarstvo[i].Area;
+		}
+	}*/
+	ffcountry_path.close();
+	/*ffcapital_path.close();
+	ffcontinent_path.close();
+	ffpopulation_path.close();
+	ffarea_path.close();
+	ofstream f_path_database;
+	string path_database;
+	cout << "Enter the path where the DataBase will be stored : \n";
+	cin >> path_database;
+	f_path_database.open(path_database);
+
+	for (int i = 0; i < Gosudarstvo_number; i++)
+	{
+		f_path_database << setw(30) << OurGosudarstvo[i].Country << "\t"
+			<< setw(30) << OurGosudarstvo[i].Capital << " \t \t "
+			<< setw(20) << OurGosudarstvo[i].Continent << " \t \t"
+			<< setw(10) << OurGosudarstvo[i].Population << " \t \t"
+			<< setw(10) << OurGosudarstvo[i].Area << "\n";
+	}
+	system("cls");
+	cout << setw(30) << "Country" << setw(30) << "Capital" << setw(20) << "Continet" << setw(10) << "Population" << setw(10) << "Area(km^2)" << endl;
+	for (int i = 0; i < Gosudarstvo_number; i++)
+	{
+		f_path_database << setw(30) << OurGosudarstvo[i].Country
+			<< setw(30) << OurGosudarstvo[i].Capital
+			<< setw(20) << OurGosudarstvo[i].Continent
+			<< setw(10) << OurGosudarstvo[i].Population
+			<< setw(10) << OurGosudarstvo[i].Area;
+	}*/
+}
+	
+
+/*
+()
+{
+	DataPath();
+
+	string country_path, capital_path, continent_path, population_path, area_path;
+
+	ofstream fcountry_path;
+	{
+		fcountry_path.open(country_path);
+	    fcountry_path << "China\nUSA\nBrazil\nUkraine\nJapan\nSpain\nKenya\nCanada\nNew Zealand\nMexico\nFrance\nPoland\nAustralia\nItaly\nUK\nEgypt\nAlgeria\nSouth Africa\nArgentina\nChile";
+	}
+	ofstream fcapital_path;
+	{
+		fcapital_path.open(capital_path);
+	    fcapital_path << "Beijing\nWashington\nBrasilia\nKyiv\nTokyo\nMadrid\nNairobi\nOttawa\nWellington\nMexico City\nParis\nWarsaw\nCanberra\nRome\nLondon\nCairo\nAlgiers\nCape Town\nBuenos Aires\nSantiago";
+	
+	}
+	ofstream fcontinent_path;
+	{
+		fcontinent_path.open(continent_path);
+        fcontinent_path << "Asia\nNorth America\nSouth America\nEurope\nAsia\nEurope\nAfrica\nNorth America\nOceania\nNorth America\nEurope\nEurope\nOceania\nEurope\nEurope\nAfrica\nAfrica\nAfrica\nSouth America\nSouth America";
+
+	}
+
+	ofstream fpopulation_path;
+	{
+		fpopulation_path.open(population_path);
+        fpopulation_path << "1412000000\n331449281\n210147125\n41487960\n125360000\n47450795\n54985698\n38048738\n5129360\n126014024\n67406000\n38268000\n25802300\n60317166\n67886004\n101576517\n44700000\n59622350\n44938712\n17574003";
+
+	}
+
+
+	ofstream farea_path;
+	{
+		farea_path.open(area_path);
+		farea_path << "9596961\n9833520\n8515767\n603628\n377975\n505990\n580367\n9984670\n268021\n1972550\n640679\n312696\n7692024\n301340\n242495\n1010408\n2381741\n1221037\n2780400\n756096";
+	}
+
+	fcountry_path.close();
+	fcapital_path.close();
+	fcontinent_path.close();
+	fpopulation_path.close();
+	farea_path.close();
+}
+
+/*
+void DataReading()
+{
+	int Gosudarstvo_number = 20;
+	Gosudarstvo* OurGosudarstvo = new Gosudarstvo[Gosudarstvo_number];
+	string country_path, capital_path, continent_path, population_path, area_path;
+	ifstream ffcountry_path(country_path);
+	{
+		if (!ffcountry_path.is_open())
+		{
+			cout << "Open error!";
+		}
+		else
+		{
+			for (int i = 0; i < Gosudarstvo_number; i++)
+			{
+				getline(ffcountry_path, OurGosudarstvo[i].Country);
+			}
+		}
+	}
+	ffcountry_path.close();
+
+	ifstream ffcapital_path(capital_path);
+	{
+		if (!ffcapital_path.is_open())
+		{
+			cout << "Open error!";
+		}
+		else
+		{
+			for (int i = 0; i < Gosudarstvo_number; i++)
+			{
+				getline(ffcapital_path, OurGosudarstvo[i].Capital);
+			}
+		}
+	}
+	ffcapital_path.close();
+
+	ifstream ffcontinent_path(continent_path);
+	{
+		if (!ffcontinent_path.is_open())
+		{
+			cout << "Open error!";
+		}
+		else
+		{
+			for (int i = 0; i < Gosudarstvo_number; i++)
+			{
+				getline(ffcontinent_path, OurGosudarstvo[i].Continent);
+			}
+		}
+	}
+	ffcontinent_path.close();
+
+	ifstream ffpopulation_path(population_path);
+	{
+		if (!ffpopulation_path.is_open())
+		{
+			cout << "Open error!";
+		}
+		else
+		{
+			for (int i = 0; i < Gosudarstvo_number; i++)
+			{
+				getline(ffpopulation_path, OurGosudarstvo[i].Population);
+			}
+		}
+	}
+	ffpopulation_path.close();
+
+	ifstream ffarea_path(area_path);
+	{
+		if (!ffarea_path.is_open())
+		{
+			cout << "Open error!";
+		}
+		else
+		{
+			for (int i = 0; i < Gosudarstvo_number; i++)
+			{
+				getline(ffarea_path, OurGosudarstvo[i].Area);
+			}
+		}
+	}
+	ffarea_path.close();
+
+	ofstream f_path_database;
+	string path_database;
+	cout << "Enter the path where the DataBase will be stored : \n";
+	cin >> path_database;
+	f_path_database.open(path_database);
+
+	for (int i = 0; i < Gosudarstvo_number; i++)
+	{
+		f_path_database << setw(30) << OurGosudarstvo[i].Country << "\t"
+			<< setw(30) << OurGosudarstvo[i].Capital << " \t \t "
+			<< setw(20) << OurGosudarstvo[i].Continent << " \t \t"
+			<< setw(10) << OurGosudarstvo[i].Population << " \t \t"
+			<< setw(10) << OurGosudarstvo[i].Area <<  "\n";
+	}
+	f_path_database.close();
+}
+ 
+ *//*
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	Menu();
+	cout << "Create a password for data changes: ";
+	string password;
+	getline(cin, password);
+	string filename;
+	while (menu_choice != 0)
+	{
+		switch (menu_choice)
+		{
+		case 1:
+			cout << "Введите навзвание файла: ";
+			cin >> filename;
+
+			DataReading(filename);
+			break;
+		}
+	}
+	
+}   */      /*
+void task2_2()
+{
+	ifstream sfile("C:\\Gosudarstva.txt");
+	string str;
+	if (sfile.is_open())
+	{
+		while (getline(sfile, str))
+		{
+			cout << "№ Country          Capital         Continent          Population(people)      Area(km ^ 2)" << endl
+				<< "===========================================================================================" 
+			cout << str << endl;
+		}
+	}
+	sfile.close();
+}
+*/
+
+/*
+
+int main();
+{
+	setlocale(LC_ALL, "Russian");
+	system("cls");
+	//Menu();
+	DataPath();
+	DataRecord();
+	//DataReading();
+
+}*/
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	system("cls");
+	DataRecord();
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*лишнее
+/*#include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 struct Gosudarstvo
